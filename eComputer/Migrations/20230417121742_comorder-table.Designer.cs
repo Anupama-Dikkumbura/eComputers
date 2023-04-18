@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eComputer.Data;
 
@@ -11,9 +12,11 @@ using eComputer.Data;
 namespace eComputer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230417121742_comorder-table")]
+    partial class comordertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -401,6 +404,14 @@ namespace eComputer.Migrations
                     b.Property<int?>("ModelDefaultVGA")
                         .HasColumnType("int");
 
+                    b.Property<string>("ModelDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("ModelPrice")
                         .HasColumnType("float");
 
@@ -441,10 +452,6 @@ namespace eComputer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -669,7 +676,7 @@ namespace eComputer.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("eComputer.Models.ComModel", "ComModel")
-                        .WithMany("ComOrders")
+                        .WithMany()
                         .HasForeignKey("ComModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -794,8 +801,6 @@ namespace eComputer.Migrations
             modelBuilder.Entity("eComputer.Models.ComModel", b =>
                 {
                     b.Navigation("ComModels_Accessories");
-
-                    b.Navigation("ComOrders");
                 });
 
             modelBuilder.Entity("eComputer.Models.Order", b =>

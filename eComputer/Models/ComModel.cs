@@ -43,40 +43,41 @@ namespace eComputer.Models
         [Display(Name = "Default CPU")]
         public int? ModelDefaultCPU { get; set; }
         [ForeignKey("ModelDefaultCPU")]
-        public Accessory? AccessoryCPU { get; set; }
+        public virtual Accessory? AccessoryCPU { get; set; }
 
         [Display(Name = "Default Memory")]
         public int? ModelDefaultMemory { get; set; }
         [ForeignKey("ModelDefaultMemory")]
-        public Accessory? AccessoryMemory { get; set; }
+        public virtual Accessory? AccessoryMemory { get; set; }
 
         [Display(Name = "Default HDD")]
         public int? ModelDefaultHDD { get; set; }
         [ForeignKey("ModelDefaultHDD")]
-        public Accessory? AccessoryHDD { get; set; }
+        public virtual Accessory? AccessoryHDD { get; set; }
 
         [Display(Name = "Default SSD")]
         public int? ModelDefaultSSD { get; set; }
         [ForeignKey("ModelDefaultSSD")]
-        public Accessory? AccessorySSD { get; set; }
+        public virtual Accessory? AccessorySSD { get; set; }
 
         [Display(Name = "Default VGA")]
         public int? ModelDefaultVGA { get; set; }
         [ForeignKey("ModelDefaultVGA")]
-        public Accessory? AccessoryVGA { get; set; }
+        public virtual Accessory? AccessoryVGA { get; set; }
 
         [Display(Name = "Default OS")]
         public int? ModelDefaultOS { get; set; }
         [ForeignKey("ModelDefaultOS")]
-        public Accessory? AccessoryOS { get; set; }
+        public virtual Accessory? AccessoryOS { get; set; }
 
         [Display(Name = "Default Antivirus")]
         public int? ModelDefaultAntivirus { get; set; }
         [ForeignKey("ModelDefaultAntivirus")]
-        public Accessory? AccessoryAntivirus { get; set; }
+        public virtual Accessory? AccessoryAntivirus { get; set; }
 
         //Relationship
         public List<ComModel_Accessory> ComModels_Accessories { get; set; }
+        public List<ComOrder>? ComOrders { get; set; }
     }
 }
 

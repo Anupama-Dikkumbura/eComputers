@@ -15,6 +15,14 @@ namespace eComputer.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<ComModel>().HasOne(c => c.AccessoryCPU).WithMany().HasForeignKey(c => c.ModelDefaultCPU);
+            //modelBuilder.Entity<ComModel>().HasOne(c => c.AccessoryMemory).WithMany().HasForeignKey(c => c.ModelDefaultMemory);
+            //modelBuilder.Entity<ComModel>().HasOne(c => c.AccessoryVGA).WithMany().HasForeignKey(c => c.ModelDefaultVGA);
+            //modelBuilder.Entity<ComModel>().HasOne(c => c.AccessoryHDD).WithMany().HasForeignKey(c => c.ModelDefaultHDD);
+            //modelBuilder.Entity<ComModel>().HasOne(c => c.AccessorySSD).WithMany().HasForeignKey(c => c.ModelDefaultSSD);
+            //modelBuilder.Entity<ComModel>().HasOne(c => c.AccessoryOS).WithMany().HasForeignKey(c => c.ModelDefaultOS);
+            //modelBuilder.Entity<ComModel>().HasOne(c => c.AccessoryAntivirus).WithMany().HasForeignKey(c => c.ModelDefaultAntivirus);
+
             modelBuilder.Entity<ComModel_Accessory>().HasKey(ca => new
             {
                 ca.ComModelId,

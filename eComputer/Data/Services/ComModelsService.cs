@@ -70,6 +70,13 @@ namespace eComputer.Data.Services
             var modelDetails = await _context.ComModels
                 .Include(c => c.Category)
                 .Include(s => s.Series)
+                .Include(acs => acs.AccessoryCPU)
+                .Include(acs => acs.AccessoryMemory)
+                .Include(acs => acs.AccessoryVGA)
+                .Include(acs => acs.AccessoryHDD)
+                .Include(acs => acs.AccessorySSD)
+                .Include(acs => acs.AccessoryOS)
+                .Include(acs => acs.AccessoryAntivirus)
                 .Include(ca => ca.ComModels_Accessories).ThenInclude(a => a.Accessory)
                 .FirstOrDefaultAsync(n => n.Id == id);
 

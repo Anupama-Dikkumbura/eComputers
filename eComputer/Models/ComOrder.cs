@@ -10,17 +10,9 @@ namespace eComputer.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Model Name")]
-        [Required(ErrorMessage = "Model Name is Required")]
-        public string ModelName { get; set; }
-
-        [Display(Name = "Description")]
-        [Required(ErrorMessage = "Description is Required")]
-        public string ModelDescription { get; set; }
-
-        [Display(Name = "Image")]
-        [Required(ErrorMessage = "Image is Required")]
-        public string? ImageURL { get; set; }
+        public int ComModelId { get; set; }
+        [ForeignKey("ComModelId")]
+        public ComModel ComModel { get; set; }
 
         [Display(Name = "Price (LKR)")]
         [Required(ErrorMessage = "Price is Required")]
@@ -74,6 +66,8 @@ namespace eComputer.Models
         public int? ModelDefaultAntivirus { get; set; }
         [ForeignKey("ModelDefaultAntivirus")]
         public Accessory? AccessoryAntivirus { get; set; }
+
+        
 
     }
 }

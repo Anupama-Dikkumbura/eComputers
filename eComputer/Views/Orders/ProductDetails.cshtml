@@ -1,5 +1,8 @@
 ﻿
 @model ComModel
+@{
+    ViewData["Title"] = "Product Details";
+}
 <!-- content -->
 <section class="py-5">
     <div class="container">
@@ -19,96 +22,366 @@
                         @Model.ModelName <br />
                         @Model.Series.SeriesName
                     </h4>
+                    <form asp-action="AddToShoppingCart">
+                        <p>
+                            @Model.ModelDescription
+                        </p>
 
-                    <div class="mb-3">
-                        <span class="h5">@Model.ModelPrice</span>
-                    </div>
+                        <div class="row">
+                            <div>
+                                @{
+                                    var cpu = 0;
+                                    var memory = 0;
+                                    var vga = 0;
+                                    var hdd = 0;
+                                    var ssd = 0;
+                                    var os = 0;
+                                    var antivirus = 0;
 
-                    <p>
-                        @Model.ModelDescription
-                    </p>
-
-                    <div class="row">
-                        <div>
-                            @{
-                                var cpu = 0;
-                                var memory = 0;
-                                var vga = 0;
-                                var hdd = 0;
-                                var ssd = 0;
-                                var os = 0;
-                                var antivirus = 0;
-
-                                foreach (var accessory in Model.ComModels_Accessories)
-                                {
-                                    if (accessory.Accessory.AccessoryType.ToString() == "Processor")
+                                    foreach (var accessory in Model.ComModels_Accessories)
                                     {
-                                        cpu++;
-                                    }
-                                }
-                            }
-
-                            @if (cpu > 0)
-                            {
-                                <div class="col-md-4 col-6">
-                                    <label class="mb-2">Processors</label>
-                                    <select class="form-select border border-secondary" style="height: 35px;">
-                                        <option value="@Model.">@Model.ModelDefaultCPU</option>
-                                        @foreach (var accessory in Model.ComModels_Accessories)
+                                        if (accessory.Accessory.AccessoryType.ToString() == "Processor")
                                         {
-                                            if (accessory.Accessory.AccessoryType.ToString() == "Processor")
+                                            cpu++;
+                                        }
+                                        if (accessory.Accessory.AccessoryType.ToString() == "Memory")
+                                        {
+                                            memory++;
+                                        }
+                                        if (accessory.Accessory.AccessoryType.ToString() == "VGA")
+                                        {
+                                            vga++;
+                                        }
+                                        if (accessory.Accessory.AccessoryType.ToString() == "OS")
+                                        {
+                                            os++;
+                                        }
+                                        if (accessory.Accessory.AccessoryType.ToString() == "Antivirus")
+                                        {
+                                            antivirus++;
+                                        }
+                                        if (accessory.Accessory.AccessoryType.ToString() == "HDD")
+                                        {
+                                            hdd++;
+                                        }
+                                        if (accessory.Accessory.AccessoryType.ToString() == "SSD")
+                                        {
+                                            ssd++;
+                                        }
+                                    }
+
+                                }
+
+                                @if (cpu > 0)
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">Processors</label>
+                                        <select asp-for="ModelDefaultCPU" id="ModelDefaultCPU" class="form-select border border-secondary" style="height: 35px;">
+                                            @if (Model.ModelDefaultCPU != null)
                                             {
-                                                <option value="@accessory.Accessory.Id">@accessory.Accessory.AccessoryName</option>
+                                                <option value="@Model.ModelDefaultCPU" data-price="@Model.AccessoryCPU.AccessoryPrice">@Model.AccessoryCPU.AccessoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="">-- Select an option --</option>
                                             }
 
-                                        }
-                                    </select>
-                                </div>
+                                            @foreach (var accessory in Model.ComModels_Accessories)
+                                            {
+                                                if (accessory.Accessory.AccessoryType.ToString() == "Processor")
+                                                {
+                                                    <option value="@accessory.Accessory.Id" data-price="@accessory.Accessory.AccessoryPrice">@accessory.Accessory.AccessoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
                                 }
-
-
-                        </div>
-
-                        @*<div class="col-md-4 col-6">
-                            <label class="mb-2">Accessories</label>
-                            <select class="form-select border border-secondary" style="height: 35px;">
-                                @foreach (var accessory in Model.ComModels_Accessories)
+                                else
                                 {
-                                    <option value="@accessory.Accessory.Id">@accessory.Accessory.AccessoryName</option>
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">Processors</label>
+                                        <select asp-for="ModelDefaultCPU" id="ModelDefaultCPU" class="form-select border border-secondary" style="height: 35px;" disabled>
+                                            @if (Model.AccessoryCPU != null)
+                                            {
+                                                <option value="@Model.AccessoryCPU.Id" data-price="@Model.AccessoryCPU.AccessoryPrice">@Model.AccessoryCPU.AccessoryName</option>
+                                            }
+                                        </select>
+                                    </div>
                                 }
-                            </select>
-                        </div>*@
-                    </div>
 
-                    <hr />
+                                @if (memory > 0)
+                                {
+                                    <div class="col-md-4 col-6 pt-2">
+                                        <label class="mb-2">RAM</label>
+                                        <select asp-for="ModelDefaultMemory" id="ModelDefaultMemory" class="form-select border border-secondary" style="height: 35px;">
+                                            @if (Model.ModelDefaultMemory != null)
+                                            {
+                                                <option value="@Model.ModelDefaultMemory" data-price="@Model.AccessoryMemory.AccessoryPrice">@Model.AccessoryMemory.AccessoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="">-- Select an option --</option>
+                                            }
 
-                    <div class="row mb-4">
-                        <div class="col-md-4 col-6">
-                            <label class="mb-2">Size</label>
-                            <select class="form-select border border-secondary" style="height: 35px;">
-                                <option>Small</option>
-                                <option>Medium</option>
-                                <option>Large</option>
-                            </select>
+                                            @foreach (var accessory in Model.ComModels_Accessories)
+                                            {
+                                                if (accessory.Accessory.AccessoryType.ToString() == "Memory")
+                                                {
+                                                    <option value="@accessory.Accessory.Id" data-price="@accessory.Accessory.AccessoryPrice">@accessory.Accessory.AccessoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4 col-6 pt-2">
+                                        <label class="mb-2">RAM</label>
+                                        <select asp-for="ModelDefaultMemory" id="ModelDefaultMemory" class="form-select border border-secondary" style="height: 35px;" disabled>
+                                            @if (Model.AccessoryMemory != null)
+                                            {
+                                                <option value="@Model.AccessoryMemory.Id" data-price="@Model.AccessoryMemory.AccessoryPrice">@Model.AccessoryMemory.AccessoryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+
+                                @if (vga > 0)
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">VGA</label>
+                                        <select asp-for="ModelDefaultVGA" class="form-select border border-secondary" style="height: 35px;">
+                                            @if (Model.ModelDefaultVGA != null)
+                                            {
+                                                <option value="@Model.ModelDefaultVGA" data-price="@Model.AccessoryVGA.AccessoryPrice">@Model.AccessoryVGA.AccessoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="">-- Select an option --</option>
+                                            }
+
+                                            @foreach (var accessory in Model.ComModels_Accessories)
+                                            {
+                                                if (accessory.Accessory.AccessoryType.ToString() == "VGA")
+                                                {
+                                                    <option value="@accessory.Accessory.Id" data-price="@accessory.Accessory.AccessoryPrice">@accessory.Accessory.AccessoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">VGA</label>
+                                        <select asp-for="ModelDefaultVGA" class="form-select border border-secondary" style="height: 35px;" disabled>
+                                            @if (Model.AccessoryVGA != null)
+                                            {
+                                                <option value="@Model.AccessoryVGA.Id" data-price="@Model.AccessoryVGA.AccessoryPrice">@Model.AccessoryVGA.AccessoryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+
+                                @if (hdd > 0)
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">HDD</label>
+                                        <select asp-for="ModelDefaultHDD" id="ModelDefaultHDD" class="form-select border border-secondary" style="height: 35px;">
+                                            @if (Model.ModelDefaultHDD != null)
+                                            {
+                                                <option value="@Model.AccessoryHDD" data-price="@Model.AccessoryHDD.AccessoryPrice">@Model.AccessoryHDD.AccessoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="">-- Select an option --</option>
+                                            }
+
+                                            @foreach (var accessory in Model.ComModels_Accessories)
+                                            {
+                                                if (accessory.Accessory.AccessoryType.ToString() == "HDD")
+                                                {
+                                                    <option value="@accessory.Accessory.Id" data-price="@accessory.Accessory.AccessoryPrice">@accessory.Accessory.AccessoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">HDD</label>
+                                        <select asp-for="ModelDefaultHDD" id="ModelDefaultHDD" class="form-select border border-secondary" style="height: 35px;" disabled>
+                                            @if (Model.AccessoryHDD != null)
+                                            {
+                                                <option value="@Model.AccessoryHDD.Id" data-price="@Model.AccessoryHDD.AccessoryPrice">@Model.AccessoryHDD.AccessoryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+
+                                @if (ssd > 0)
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">SSD</label>
+                                        <select asp-for="ModelDefaultSSD" id="ModelDefaultSSD" class="form-select border border-secondary" style="height: 35px;">
+                                            @if (Model.ModelDefaultSSD != null)
+                                            {
+                                                <option value="@Model.ModelDefaultSSD" data-price="@Model.AccessorySSD.AccessoryPrice">@Model.AccessorySSD.AccessoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="">-- Select an option --</option>
+                                            }
+
+                                            @foreach (var accessory in Model.ComModels_Accessories)
+                                            {
+                                                if (accessory.Accessory.AccessoryType.ToString() == "SSD")
+                                                {
+                                                    <option value="@accessory.Accessory.Id" data-price="@accessory.Accessory.AccessoryPrice">@accessory.Accessory.AccessoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">SSD</label>
+                                        <select asp-for="ModelDefaultSSD" id="ModelDefaultSSD" class="form-select border border-secondary" style="height: 35px;" disabled>
+                                            @if (Model.AccessorySSD != null)
+                                            {
+                                                <option value="@Model.AccessorySSD.Id" data-price="@Model.AccessorySSD.AccessoryPrice">@Model.AccessorySSD.AccessoryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+
+                                @if (os > 0)
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">OS</label>
+                                        <select asp-for="ModelDefaultOS" id="ModelDefaultOS" class="form-select border border-secondary" style="height: 35px;">
+                                            @if (Model.ModelDefaultOS != null)
+                                            {
+                                                <option value="@Model.ModelDefaultOS" data-price="@Model.AccessoryOS.AccessoryPrice">@Model.AccessoryOS.AccessoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="">-- Select an option --</option>
+                                            }
+
+                                            @foreach (var accessory in Model.ComModels_Accessories)
+                                            {
+                                                if (accessory.Accessory.AccessoryType.ToString() == "OS")
+                                                {
+                                                    <option value="@accessory.Accessory.Id" data-price="@accessory.Accessory.AccessoryPrice">@accessory.Accessory.AccessoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">OS</label>
+                                        <select asp-for="ModelDefaultOS" id="ModelDefaultOS" class="form-select border border-secondary" style="height: 35px;" disabled>
+                                            @if (Model.AccessoryOS != null)
+                                            {
+                                                <option value="@Model.AccessoryOS.Id" data-price="@Model.AccessoryOS.AccessoryPrice">@Model.AccessoryOS.AccessoryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+
+                                @if (antivirus > 0)
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">Antivirus</label>
+                                        <select asp-for="ModelDefaultAntivirus" id="ModelDefaultAntivirus" class="form-select border border-secondary" style="height: 35px;">
+                                            @if (Model.ModelDefaultAntivirus != null)
+                                            {
+                                                <option value="@Model.ModelDefaultAntivirus" data-price="@Model.AccessoryAntivirus.AccessoryPrice">@Model.AccessoryAntivirus.AccessoryName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="">-- Select an option --</option>
+                                            }
+
+                                            @foreach (var accessory in Model.ComModels_Accessories)
+                                            {
+                                                if (accessory.Accessory.AccessoryType.ToString() == "Antivirus")
+                                                {
+                                                    <option value="@accessory.Accessory.Id" data-price="@accessory.Accessory.AccessoryPrice">@accessory.Accessory.AccessoryName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4 col-6">
+                                        <label class="mb-2">Antivirus</label>
+                                        <select asp-for="ModelDefaultAntivirus" id="ModelDefaultAntivirus" class="form-select border border-secondary" style="height: 35px;" disabled>
+                                            @if (Model.AccessoryAntivirus != null)
+                                            {
+                                                <option value="@Model.AccessoryAntivirus.Id" data-price="@Model.AccessoryAntivirus.AccessoryPrice">@Model.AccessoryAntivirus.AccessoryName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+
+                                <input id="basePrice" asp-for="BasePrice" value="@Model.BasePrice" hidden />
+                                <input id="id" asp-for="Id" value="@Model.Id" hidden />
+                                <input id="basePrice" asp-for="CategoryId" value="@Model.CategoryId" hidden />
+                                <input id="basePrice" asp-for="SeriesId" value="@Model.SeriesId" hidden />
+                            </div>
+
+                            @*<div class="col-md-4 col-6">
+                <label class="mb-2">Accessories</label>
+                <select class="form-select border border-secondary" style="height: 35px;">
+                    @foreach (var accessory in Model.ComModels_Accessories)
+                    {
+                        <option value="@accessory.Accessory.Id">@accessory.Accessory.AccessoryName</option>
+                    }
+                </select>
+            </div>*@
                         </div>
-                        <!-- col.// -->
-                        <div class="col-md-4 col-6 mb-3">
-                            <label class="mb-2 d-block">Quantity</label>
-                            <div class="input-group mb-3" style="width: 170px;">
-                                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <input type="text" class="form-control text-center border border-secondary" placeholder="14" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-                                    <i class="fas fa-plus"></i>
-                                </button>
+
+                        <hr />
+
+                        <div class="row mb-4">
+                            <div class="col-md-4 col-6">
+                                <label class="mb-2">Size</label>
+                                <select class="form-select border border-secondary" style="height: 35px;">
+                                    <option>Small</option>
+                                    <option>Medium</option>
+                                    <option>Large</option>
+                                </select>
+                            </div>
+                            <!-- col.// -->
+                            <div class="col-md-4 col-6 mb-3">
+                                <label class="mb-2 d-block">Quantity</label>
+                                <div class="input-group mb-3" style="width: 170px;">
+                                    <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="form-control text-center border border-secondary" placeholder="14" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                                    <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                    <a href="#" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
-                    <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Save </a>
-                </div>
+                        <div class="mb-3">
+                            <label asp-for="ModelPrice"></label>
+                            <input class="h5" asp-for="ModelPrice" style="border:none" readonly></input>
+                        </div>
+                        <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
+                        <button type="submit" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
+                        <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Save </a>
+                    </form>
+                        </div>
             </main>
         </div>
     </div>
@@ -266,6 +539,221 @@
 </section>
 
 @section Scripts{
+    <script>var totalPrice = 0;
+        var previousBasePrice = 0;
+        var previousValueCPU = 0;
+        var previousValueMemory = 0;
+        var previousValueVGA = 0;
+        var previousValueHDD = 0;
+        var previousValueSSD = 0;
+        var previousValueOS = 0;
+        var previousValueAntivirus = 0;
 
-    
+        $(document).ready(function () {
+            var basePrice = parseFloat($('#basePrice').val());
+            var cpuPrice = $('#ModelDefaultCPU').find('option:selected').data('price');
+            var MemoryPrice = $('#ModelDefaultMemory').find('option:selected').data('price');
+            var VGAPrice = $('#ModelDefaultVGA').find('option:selected').data('price');
+            var HDDPrice = $('#ModelDefaultHDD').find('option:selected').data('price');
+            var SSDPrice = $('#ModelDefaultSSD').find('option:selected').data('price');
+            var OSPrice = $('#ModelDefaultOS').find('option:selected').data('price');
+            var AntivirusPrice = $('#ModelDefaultAntivirus').find('option:selected').data('price');
+
+            if (!isNaN(basePrice)) {
+                previousBasePrice = basePrice;
+                totalPrice += basePrice;
+            }
+            if (!isNaN(cpuPrice)) {
+                previousValueCPU = cpuPrice;
+                totalPrice += cpuPrice;
+            }
+
+            if (!isNaN(MemoryPrice)) {
+                previousValueMemory = MemoryPrice;
+                totalPrice += MemoryPrice;
+            }
+
+            if (!isNaN(VGAPrice)) {
+                previousValueVGA = VGAPrice;
+                totalPrice += VGAPrice;
+            }
+
+            if (!isNaN(HDDPrice)) {
+                previousValueHDD = HDDPrice;
+                totalPrice += HDDPrice;
+            }
+            if (!isNaN(SSDPrice)) {
+                previousValueSSD = SSDPrice;
+                totalPrice += SSDPrice;
+            }
+            if (!isNaN(OSPrice)) {
+                previousValueOS = OSPrice;
+                totalPrice += OSPrice;
+            }
+            if (!isNaN(AntivirusPrice)) {
+                previousValueAntivirus = AntivirusPrice;
+                totalPrice += AntivirusPrice;
+            }
+            $("#ModelPrice").val(totalPrice);
+        });
+
+
+        $("#basePrice").on("change", function () {
+            var basePrice = parseFloat($('#basePrice').val());
+            if (!isNaN(basePrice)) {
+                if (previousBasePrice == 0) {
+                    totalPrice += basePrice;
+                    previousBasePrice = basePrice;
+                } else if (previousBasePrice != 0) {
+                    totalPrice -= previousBasePrice;
+                    totalPrice += basePrice;
+                    previousBasePrice = basePrice;
+                }
+            } else {
+                totalPrice -= previousBasePrice;
+                previousBasePrice = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });
+        $("#ModelDefaultCPU").on("change", function () {
+            var cpuPriceOption = $(this).find('option:selected');
+            var cpuPrice = cpuPriceOption.data('price')
+            if (!isNaN(cpuPrice)) {
+                if (previousValueCPU == 0) {
+                    totalPrice += cpuPrice;
+                    previousValueCPU = cpuPrice;
+                } else if (previousValueCPU != 0) {
+                    totalPrice -= previousValueCPU;
+                    totalPrice += cpuPrice;
+                    previousValueCPU = cpuPrice;
+                }
+            } else {
+                totalPrice -= previousValueCPU;
+                previousValueCPU = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });
+
+        $("#ModelDefaultMemory").on("change", function () {
+            var MemoryPriceOption = $(this).find('option:selected');
+            var MemoryPrice = MemoryPriceOption.data('price')
+            if (!isNaN(MemoryPrice)) {
+                if (previousValueMemory == 0) {
+                    totalPrice += MemoryPrice;
+                    previousValueMemory = MemoryPrice;
+                } else if (previousValueMemory != 0) {
+                    totalPrice -= previousValueMemory;
+                    totalPrice += MemoryPrice;
+                    previousValueMemory = MemoryPrice;
+                }
+            } else {
+                totalPrice -= previousValueMemory;
+                previousValueMemory = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });
+
+        $("#ModelDefaultVGA").on("change", function () {
+            var VGAPriceOption = $(this).find('option:selected');
+            var VGAPrice = VGAPriceOption.data('price')
+            if (!isNaN(VGAPrice)) {
+                if (previousValueVGA == 0) {
+                    totalPrice += VGAPrice;
+                    previousValueVGA = VGAPrice;
+                } else if (previousValueVGA != 0) {
+                    totalPrice -= previousValueVGA;
+                    totalPrice += VGAPrice;
+                    previousValueVGA = VGAPrice;
+                }
+            } else {
+                totalPrice -= previousValueVGA;
+                previousValueVGA = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });
+
+        $("#ModelDefaultHDD").on("change", function () {
+            var HDDPriceOption = $(this).find('option:selected');
+            var HDDPrice = HDDPriceOption.data('price')
+            if (!isNaN(HDDPrice)) {
+                if (previousValueHDD == 0) {
+                    totalPrice += HDDPrice;
+                    previousValueHDD = HDDPrice;
+                } else if (previousValueHDD != 0) {
+                    totalPrice -= previousValueHDD;
+                    totalPrice += HDDPrice;
+                    previousValueHDD = HDDPrice;
+                }
+            } else {
+                totalPrice -= previousValueHDD;
+                previousValueHDD = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });
+
+        $("#ModelDefaultSSD").on("change", function () {
+            var SSDPriceOption = $(this).find('option:selected');
+            var SSDPrice = SSDPriceOption.data('price')
+            if (!isNaN(SSDPrice)) {
+                if (previousValueSSD == 0) {
+                    totalPrice += SSDPrice;
+                    previousValueSSD = SSDPrice;
+                } else if (previousValueSSD != 0) {
+                    totalPrice -= previousValueSSD;
+                    totalPrice += SSDPrice;
+                    previousValueSSD = SSDPrice;
+                }
+            } else {
+                totalPrice -= previousValueSSD;
+                previousValueSSD = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });
+
+        $("#ModelDefaultOS").on("change", function () {
+            var OSPriceOption = $(this).find('option:selected');
+            var OSPrice = OSPriceOption.data('price');
+            if (!isNaN(OSPrice)) {
+                if (previousValueOS == 0) {
+                    totalPrice += OSPrice;
+                    previousValueOS = OSPrice;
+                } else if (previousValueOS != 0) {
+                    totalPrice -= previousValueOS;
+                    totalPrice += OSPrice;
+                    previousValueOS = OSPrice;
+                }
+            } else {
+                totalPrice -= previousValueOS;
+                previousValueOS = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });
+
+        $("#ModelDefaultAntivirus").on("change", function () {
+            var AntivirusPriceOption = $(this).find('option:selected');
+            var AntivirusPrice = AntivirusPriceOption.data('price');
+            if (!isNaN(AntivirusPrice)) {
+                if (previousValueAntivirus == 0) {
+                    totalPrice += AntivirusPrice;
+                    previousValueAntivirus = AntivirusPrice;
+                } else if (previousValueAntivirus != 0) {
+                    totalPrice -= previousValueAntivirus;
+                    totalPrice += AntivirusPrice;
+                    previousValueAntivirus = AntivirusPrice;
+                }
+            } else {
+                totalPrice -= previousValueAntivirus;
+                previousValueAntivirus = 0;
+            }
+
+            $("#ModelPrice").val(totalPrice);
+        });</script>
+
 }

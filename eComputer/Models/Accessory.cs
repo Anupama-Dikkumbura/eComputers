@@ -29,6 +29,8 @@ namespace eComputer.Models
 
         //Relationship
         public List<ComModel_Accessory>? ComModels_Accessories { get; set; }
+        //public virtual ComModel ComModel { get; set; }
+
     }
 }
 

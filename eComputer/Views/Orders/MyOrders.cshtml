@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2 class="pt-2">My Orders</h2>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>Id</th>
+                    <th>Model</th>
+                    <th>Order Status</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            @item.Id
+                        </td>
+                        <td class="align-middle">
+                            @foreach (var orderitem in item.OrderItems)
+                            {
+                                @orderitem.ComOrder.ComModel.ModelName
+                                <br />
+                            }
+                        </td>
+                        <td>
+                            @item.OrderStatus
+                        </td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <td class="align-middle">
+                                @if (item.OrderStatus != "OnDelivery" && item.OrderStatus != "Delivered" && item.OrderStatus != "Cancelled")
+                                {
+                                    <a class="btn btn-outline-danger" asp-action="CancelOrder" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Cancel order</a>
+                                }
+
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

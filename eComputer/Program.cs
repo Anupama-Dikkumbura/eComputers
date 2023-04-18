@@ -22,6 +22,7 @@ builder.Services.AddScoped<IAccessoriesService, AccessoriesService>();
 builder.Services.AddScoped<IComModelsService, ComModelsService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddScoped<IComOrderService, ComOrderService>();
 builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
 //Authentication and authorization

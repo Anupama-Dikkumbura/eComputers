@@ -24,7 +24,7 @@ else
         </button>
         <ul class="dropdown-menu" aria-labelledby="profile-btn">
             <li>
-                <a class="dropdown-item" asp-controller="Orders" asp-action="Index"><i class="bi bi-list"></i>Orders</a>
+                <a class="dropdown-item" asp-controller="Orders" asp-action="MyOrders"><i class="bi bi-list"></i>Orders</a>
             </li>
             @if (User.IsInRole("Admin"))
             {
@@ -39,8 +39,8 @@ else
 
     //Logut button
     <form asp-controller="Account" asp-action="Logout">
-        <button class="btn btn-outline-danger" my-2 my-sm-0>
-            <i class="bi bi-box-arrow-in-right"></i>  Logout
+        <button class="btn btn-outline-danger" my-2 my-sm-0 title="Logout">
+            <i class="bi bi-box-arrow-in-right"></i>
         </button>
     </form>
 }

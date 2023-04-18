@@ -21,7 +21,7 @@ namespace eComputer.Data
                 var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
                 context.Database.EnsureCreated();
 
-                // Cinema
+                // Categories
                 if (!context.Categories.Any())
                 {
                     context.Categories.AddRange(new List<Category>()

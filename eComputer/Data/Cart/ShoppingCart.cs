@@ -30,7 +30,7 @@ namespace eComputer.Data.Cart
         public void AddItemToCart(ComOrder comOrder)
         {
 
-            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.comOrder.Id == comOrder.Id && n.ShoppingCartId == ShoppingCartId);
+            var shoppingCartItem =  _context.ShoppingCartItems.FirstOrDefault(n => n.comOrder.Id == comOrder.Id && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem()
@@ -39,7 +39,7 @@ namespace eComputer.Data.Cart
                     comOrder = comOrder,
                     Amount = 1
                 };
-                _context.ShoppingCartItems.Add(shoppingCartItem);
+                 _context.ShoppingCartItems.Add(shoppingCartItem);
             }
             else
             {
@@ -68,7 +68,7 @@ namespace eComputer.Data.Cart
         public List<ShoppingCartItem> GetShoppingCartItemsAsync()
         {
 
-            return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToList());
+            return ShoppingCartItems ?? (ShoppingCartItems = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.comOrder).Include(c => c.comOrder.ComModel).ToList());
 
 
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eComputer.Data;
 
@@ -11,9 +12,11 @@ using eComputer.Data;
 namespace eComputer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230416032705_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,7 +180,12 @@ namespace eComputer.Migrations
                     b.Property<int>("AccessoryType")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ComModelId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ComModelId");
 
                     b.ToTable("Accessories");
                 });
@@ -377,8 +385,9 @@ namespace eComputer.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ComModelId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ModelDefaultAntivirus")
                         .HasColumnType("int");
@@ -401,6 +410,14 @@ namespace eComputer.Migrations
                     b.Property<int?>("ModelDefaultVGA")
                         .HasColumnType("int");
 
+                    b.Property<string>("ModelDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("ModelPrice")
                         .HasColumnType("float");
 
@@ -410,8 +427,6 @@ namespace eComputer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ComModelId");
 
                     b.HasIndex("ModelDefaultAntivirus");
 
@@ -441,10 +456,6 @@ namespace eComputer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -586,6 +597,13 @@ namespace eComputer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("eComputer.Models.Accessory", b =>
+                {
+                    b.HasOne("eComputer.Models.ComModel", null)
+                        .WithMany("Accessories")
+                        .HasForeignKey("ComModelId");
+                });
+
             modelBuilder.Entity("eComputer.Models.ComModel", b =>
                 {
                     b.HasOne("eComputer.Models.Category", "Category")
@@ -668,12 +686,6 @@ namespace eComputer.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("eComputer.Models.ComModel", "ComModel")
-                        .WithMany("ComOrders")
-                        .HasForeignKey("ComModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("eComputer.Models.Accessory", "AccessoryAntivirus")
                         .WithMany()
                         .HasForeignKey("ModelDefaultAntivirus");
@@ -721,8 +733,6 @@ namespace eComputer.Migrations
                     b.Navigation("AccessoryVGA");
 
                     b.Navigation("Category");
-
-                    b.Navigation("ComModel");
 
                     b.Navigation("Series");
                 });
@@ -793,9 +803,9 @@ namespace eComputer.Migrations
 
             modelBuilder.Entity("eComputer.Models.ComModel", b =>
                 {
-                    b.Navigation("ComModels_Accessories");
+                    b.Navigation("Accessories");
 
-                    b.Navigation("ComOrders");
+                    b.Navigation("ComModels_Accessories");
                 });
 
             modelBuilder.Entity("eComputer.Models.Order", b =>
