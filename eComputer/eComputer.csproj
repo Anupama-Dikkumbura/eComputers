@@ -8,4 +8,54 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <None Remove="Data\" />
+    <None Remove="Data\Enums\" />
+    <None Remove="Data\Services\" />
+    <None Remove="Views\Admin\" />
+    <None Remove="Data\Static\" />
+    <None Remove="Views\Account\" />
+    <None Remove="Data\ViewModels\" />
+    <None Remove="Views\Categories\" />
+    <None Remove="Data\Base\" />
+    <None Remove="Views\Serieses\" />
+    <None Remove="Views\Accessories\" />
+    <None Remove="Views\ComModels\" />
+    <None Remove="Views\Users\" />
+    <None Remove="Data\Cart\" />
+    <None Remove="Data\ViewComponents\" />
+    <None Remove="Views\Orders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Data\Enums\" />
+    <Folder Include="Data\Services\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="Data\Static\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Data\ViewModels\" />
+    <Folder Include="Views\Categories\" />
+    <Folder Include="Data\Base\" />
+    <Folder Include="Views\Serieses\" />
+    <Folder Include="Views\Accessories\" />
+    <Folder Include="Views\ComModels\" />
+    <Folder Include="Views\Users\" />
+    <Folder Include="Data\Cart\" />
+    <Folder Include="Data\ViewComponents\" />
+    <Folder Include="Views\Orders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\" />
+  </ItemGroup>
 </Project>

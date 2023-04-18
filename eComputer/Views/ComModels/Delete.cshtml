@@ -1,0 +1,191 @@
+﻿@model ComModel
+
+@{
+    ViewData["Title"] = "Model Delete";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Delete confirmation for @Model.ModelName</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <div asp-validation-summary="ModelOnly" class="text-danger">
+                </div>
+                <div class="form-group text-center">
+                    <img id="ImagePreview" class="border-info rounded-circle" style="max-width:200px" />
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Id" class="control-lable"></label>
+                            <input asp-for="Id" class="form-control" readonly />
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelName" class="control-lable"></label>
+                            <input asp-for="ModelName" class="form-control" readonly />
+                            <span asp-validation-for="ModelName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Category.CategoryName" class="control-lable"></label>
+                            <input asp-for="@Model.Category.CategoryName" class="form-control" readonly />
+                            <span asp-validation-for="@Model.Category.CategoryName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Series.SeriesName" class="control-lable"></label>
+                            <input asp-for="@Model.Series.SeriesName" class="form-control" readonly />
+                            <span asp-validation-for="@Model.Series.SeriesName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelDescription" class="control-label"></label>
+                            <textarea asp-for="ModelDescription" class="form-control" readonly>
+                                </textarea>
+                            <span asp-validation-for="ModelDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ImageURL" class="control-lable"></label>
+                            <input asp-for="ImageURL" class="form-control" readonly />
+                            <span asp-validation-for="ImageURL" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelPrice" class="control-lable"></label>
+                            <input asp-for="ModelPrice" class="form-control" readonly />
+                            <span asp-validation-for="ModelPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BasePrice" class="control-lable">Base Price</label>
+                            <input asp-for="BasePrice" type="number" id="basePrice" class="form-control" readonly />
+                            <span asp-validation-for="BasePrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ModelDefaultCPU" class="control-label"></label>
+                            <select asp-for="ModelDefaultCPU" class="form-control" disabled>
+                                <option value="">-- Select an option --</option>
+                                @foreach (Accessory accessory in ViewBag.Processors)
+                                {
+                                    <option value="@accessory.Id" data-price="@accessory.AccessoryPrice">@accessory.AccessoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ModelDefaultCPU" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelDefaultMemory" class="control-label"></label>
+                            <select asp-for="ModelDefaultMemory" class="form-control" disabled>
+                                <option value="">-- Select an option --</option>
+                                @foreach (Accessory accessory in ViewBag.Memory)
+                                {
+                                    <option value="@accessory.Id" data-price="@accessory.AccessoryPrice">@accessory.AccessoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ModelDefaultMemory" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelDefaultVGA" class="control-label"></label>
+                            <select asp-for="ModelDefaultVGA" class="form-control" disabled>
+                                <option value="">-- Select an option --</option>
+                                @foreach (Accessory accessory in ViewBag.VGA)
+                                {
+                                    <option value="@accessory.Id" data-price="@accessory.AccessoryPrice">@accessory.AccessoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ModelDefaultVGA" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelDefaultHDD" class="control-label"></label>
+                            <select asp-for="ModelDefaultHDD" class="form-control" disabled>
+                                <option value="">-- Select an option --</option>
+                                @foreach (Accessory accessory in ViewBag.HDD)
+                                {
+                                    <option value="@accessory.Id" data-price="@accessory.AccessoryPrice">@accessory.AccessoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ModelDefaultHDD" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelDefaultSSD" class="control-label"></label>
+                            <select asp-for="ModelDefaultSSD" class="form-control" disabled>
+                                <option value="">-- Select an option --</option>
+                                @foreach (Accessory accessory in ViewBag.SSD)
+                                {
+                                    <option value="@accessory.Id" data-price="@accessory.AccessoryPrice">@accessory.AccessoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ModelDefaultSSD" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelDefaultOS" class="control-label"></label>
+                            <select asp-for="ModelDefaultOS" class="form-control" disabled>
+                                <option value="">-- Select an option --</option>
+                                @foreach (Accessory accessory in ViewBag.OS)
+                                {
+                                    <option value="@accessory.Id" data-price="@accessory.AccessoryPrice">@accessory.AccessoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ModelDefaultOS" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ModelDefaultAntivirus" class="control-label"></label>
+                            <select asp-for="ModelDefaultAntivirus" class="form-control" disabled>
+                                <option value="">-- Select an option --</option>
+                                @foreach (Accessory accessory in ViewBag.Antivirus)
+                                {
+                                    <option value="@accessory.Id" data-price="@accessory.AccessoryPrice">@accessory.AccessoryName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ModelDefaultAntivirus" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <select class="form-control" multiple disabled>
+                                    @foreach (var accessory in Model.ComModels_Accessories)
+                                    {
+                                        <option value="@accessory.Accessory.Id">@accessory.Accessory.AccessoryName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group pt-3">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form asp-action="Delete">
+                                    <input type="hidden" asp-for="@Model.Id" />
+                                    <input type="submit" value="Confirm" class="btn btn-danger float-right" />
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <a class="btn btn-outline-secondary float-left" asp-action="Index">Show All</a>
+                                </div>
+                            </div>
+                        
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>$(document).ready(function () {
+            var output = document.getElementById('ImagePreview');
+            output.src = $("#ImageURL").val();
+        })
+
+        $("#ImageURL").on("change", function () {
+            var output = document.getElementById('ImagePreview');
+            output.src = $(this).val();
+        })</script>
+
+}

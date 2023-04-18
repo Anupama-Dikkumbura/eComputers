@@ -1,21 +1,26 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using eComputer.Models;
+using Microsoft.AspNetCore.Hosting.Server;
+using eComputer.Data.Services;
 
 namespace eComputer.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IHomeService _service;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IHomeService service)
     {
         _logger = logger;
+        _service = service;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var allComs = await _service.GetAllAsync();
+        return View(allComs);
     }
 
     public IActionResult Privacy()
@@ -28,5 +33,7 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    
 }
 

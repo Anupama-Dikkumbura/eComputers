@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ApplicationUser;
+
+
+@{
+    ViewData["Title"] = "Delete User";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Delete confirmation for @Model.FullName</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <div class="form-group pt-3">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Confirm" class="btn btn-danger float-right" />
+                        <a class="btn btn-outline-secondary float-left" asp-action="Index">Show All</a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

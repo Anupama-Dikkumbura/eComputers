@@ -1,0 +1,49 @@
+﻿@using eComputer.Data.Enums
+@model Accessory
+
+@{
+    ViewData["Title"] = "Edit Accessory";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Update Accessory</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccessoryName" class="control-lable"></label>
+                        <input asp-for="AccessoryName" class="form-control" />
+                        <span asp-validation-for="AccessoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccessoryType" class="control-label"></label>
+                        <select asp-for="AccessoryType" class="form-control" asp-items="Html.GetEnumSelectList<ItemTypes>()">
+                        </select>
+                        <span asp-validation-for="AccessoryType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccessoryDescription" class="control-label"></label>
+                        <textarea asp-for="AccessoryDescription" class="form-control">
+                                </textarea>
+                        <span asp-validation-for="AccessoryDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccessoryPrice" class="control-lable"></label>
+                        <input asp-for="AccessoryPrice" class="form-control" />
+                        <span asp-validation-for="AccessoryPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pt-3">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary float-left" asp-action="Index">Show All</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

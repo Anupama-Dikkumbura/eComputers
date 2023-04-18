@@ -1,0 +1,39 @@
+﻿@model NewSerieseVM
+@using eComputer.Data.ViewModels;
+
+
+@{
+    ViewData["Title"] = "Edit Seriese";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Edit Series</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeriesName" class="control-lable"></label>
+                        <input asp-for="SeriesName" class="form-control" />
+                        <span asp-validation-for="SeriesName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryId" class="control-label"></label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group pt-3">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary float-left" asp-action="Index">Show All</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
