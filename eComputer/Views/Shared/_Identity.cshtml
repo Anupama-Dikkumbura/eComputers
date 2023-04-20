@@ -18,31 +18,28 @@
 else
 {
     @*User Profile Section*@
-    <div class="dropdown">
-        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false" data-bs-toggle="dropdown">
-            <i class="bi bi-person-badge"></i>Hello, @UserManager.GetUserName(User)
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="profile-btn">
+<div class="dropdown">
+    <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false" data-bs-toggle="dropdown">
+        <i class="bi bi-person-badge"></i>Hello, @UserManager.GetUserName(User)
+    </button>
+
+    <ul class="dropdown-menu" aria-labelledby="profile-btn">
+        @if (User.IsInRole("Customer"))
+        {
+
             <li>
-                <a class="dropdown-item" asp-controller="Orders" asp-action="MyOrders"><i class="bi bi-list"></i>Orders</a>
+                <a class="dropdown-item" asp-controller="Orders" asp-action="MyOrders"><i class="bi bi-bag"></i> &nbsp; Orders</a>
             </li>
-            @if (User.IsInRole("Admin"))
-            {
-                <li>
-                    <a class="dropdown-item" asp-controller="Account" asp-action="Users"><i class="bi bi-people"></i>Users</a>
-                </li>
-            }
-        </ul>
+
+        }
+        <li>
+            <a class="dropdown-item" asp-controller="Account" asp-action="Logout"><i class="bi bi-box-arrow-right"></i> &nbsp; Logout</a>
+        </li>
+    </ul>
+
     </div>
 
     <span style="padding:5px"></span>
-
-    //Logut button
-    <form asp-controller="Account" asp-action="Logout">
-        <button class="btn btn-outline-danger" my-2 my-sm-0 title="Logout">
-            <i class="bi bi-box-arrow-in-right"></i>
-        </button>
-    </form>
 }
 
 

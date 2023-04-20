@@ -68,8 +68,8 @@
                 <div class="card-block">
                     <h6 class="m-b-20">Customers</h6>
                     <h2 class="text-right">
-                        <i class="bi bi-person"></i>
-                        486
+                        <i class="bi bi-person"></i>&nbsp;&nbsp; 
+                        @ViewBag.CustomerCount
                     </h2>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="card bg-c-green order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">New Orders</h6>
-                    <h2 class="text-right"><i class="bi bi-rocket-takeoff"></i>486</h2>
+                    <h2 class="text-right"><i class="bi bi-rocket-takeoff"></i>&nbsp;&nbsp; @ViewBag.NewOrdersCount</h2>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
             <div class="card bg-c-pink order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">All Orders</h6>
-                    <h2 class="text-right"><i class="bi bi-cart"></i>486</h2>
+                    <h2 class="text-right"><i class="bi bi-cart"></i>&nbsp;&nbsp; @ViewBag.AllOrdersCount</h2>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@
             <div class="card bg-c-yellow order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">Total Sales</h6>
-                    <h2 class="text-right"><i class="bi bi-currency-dollar"></i>486</h2>
+                    <h2 class="text-right">@ViewBag.TotalSales.ToString("c")</h2>
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@
             
         </div>
         <div class="row">
-            
+
             <div class="col-md-4 col-xl-3">
                 <a asp-controller="Users" asp-action="Index">
                     <div class="card bg-c-blue order-card">
@@ -161,7 +161,24 @@
                     </div>
                 </a>
             </div>
-            
+            <div class="col-md-4 col-xl-3">
+                <a asp-controller="Orders" asp-action="Index">
+                    <div class="card bg-c-blue order-card">
+                        <div class="card-block">
+                            <h2 class="text-center">Orders</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-xl-3">
+                <a asp-controller="Reports" asp-action="Index">
+                    <div class="card bg-c-blue order-card">
+                        <div class="card-block">
+                            <h2 class="text-center">Reports</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>

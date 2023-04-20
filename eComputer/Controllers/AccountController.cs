@@ -101,7 +101,6 @@ namespace eComputer.Controllers
         }
 
         // Logout
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

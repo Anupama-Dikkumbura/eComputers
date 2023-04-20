@@ -26,6 +26,7 @@
     <None Remove="Data\ViewComponents\" />
     <None Remove="Views\Orders\" />
     <None Remove="Views\Dashboard\" />
+    <None Remove="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -46,6 +47,7 @@
     <Folder Include="Data\ViewComponents\" />
     <Folder Include="Views\Orders\" />
     <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />

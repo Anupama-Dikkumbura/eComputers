@@ -14,9 +14,45 @@ namespace eComputer.Data.Services
             _context = context;
         }
 
+        public async Task<List<Order>> GetAllAsync()
+        {
+            var allOrders = await _context.Orders.Include(n => n.OrderItems).ThenInclude(n => n.ComOrder).ThenInclude(n => n.ComModel).Include(n => n.User).ToListAsync();
+            return allOrders;
+        }
+
         public async Task<Order> GetOrderByIdAsync(int id)
         {
-            var order = await _context.Orders.Include(n => n.OrderItems).ThenInclude(n => n.ComOrder).ThenInclude(n => n.ComModel).Include(n => n.User).FirstOrDefaultAsync(n => n.Id == id);
+            var order = await _context.Orders
+                .Include(n => n.OrderItems)
+                    .ThenInclude(n => n.ComOrder)
+                        .ThenInclude(n => n.ComModel)
+                            .ThenInclude(n => n.AccessoryCPU)
+                    .Include(n => n.OrderItems)
+                        .ThenInclude(n => n.ComOrder)
+                            .ThenInclude(n => n.ComModel)
+                                .ThenInclude(n => n.AccessoryMemory)
+                    .Include(n => n.OrderItems)
+                        .ThenInclude(n => n.ComOrder)
+                            .ThenInclude(n => n.ComModel)
+                                .ThenInclude(n => n.AccessoryVGA)
+                    .Include(n => n.OrderItems)
+                        .ThenInclude(n => n.ComOrder)
+                            .ThenInclude(n => n.ComModel)
+                                .ThenInclude(n => n.AccessoryHDD)
+                    .Include(n => n.OrderItems)
+                        .ThenInclude(n => n.ComOrder)
+                            .ThenInclude(n => n.ComModel)
+                                .ThenInclude(n => n.AccessorySSD)
+                    .Include(n => n.OrderItems)
+                        .ThenInclude(n => n.ComOrder)
+                            .ThenInclude(n => n.ComModel)
+                                .ThenInclude(n => n.AccessoryOS)
+                    .Include(n => n.OrderItems)
+                        .ThenInclude(n => n.ComOrder)
+                            .ThenInclude(n => n.ComModel)
+                                .ThenInclude(n => n.AccessoryAntivirus)
+                .Include(n => n.User)
+                .FirstOrDefaultAsync(n => n.Id == id);
             return order;
         }
 

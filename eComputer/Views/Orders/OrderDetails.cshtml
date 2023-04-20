@@ -1,0 +1,58 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <p>
+            <h1>Order - @Model.Id </h1>
+        </p>
+                        <div class="row">
+                            @foreach (var order in Model.OrderItems)
+                            {
+                                <div class="col-md-4 m-2">
+                                    <div class="card">
+                                        <img class="card-img-top" src="@order.ComOrder.ComModel.ImageURL" alt="@order.ComOrder.ComModel.ModelName">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@order.ComOrder.ComModel.ModelName</h5>
+                                            @if (order.ComOrder.AccessoryCPU != null)
+                                            {
+                                                <p>CPU: @order.ComOrder.AccessoryCPU.AccessoryName</p>
+                                            }
+                                            @if (order.ComOrder.AccessoryMemory != null)
+                                            {
+                                                <p>RAM: @order.ComOrder.AccessoryMemory.AccessoryName</p>
+                                            }
+                                            @if (order.ComOrder.AccessoryVGA != null)
+                                            {
+                                                <p>VGA: @order.ComOrder.AccessoryVGA.AccessoryName</p>
+                                            }
+                                            @if (order.ComOrder.AccessoryHDD != null)
+                                            {
+                                                <p>HDD: @order.ComOrder.AccessoryHDD.AccessoryName</p>
+                                            }
+                                            @if (order.ComOrder.AccessorySSD != null)
+                                            {
+                                                <p>SSD: @order.ComOrder.AccessorySSD.AccessoryName</p>
+                                            }
+                                            @if (order.ComOrder.AccessoryOS != null)
+                                            {
+                                                <p>OS: @order.ComOrder.AccessoryOS.AccessoryName</p>
+                                            }
+                                            @if (order.ComOrder.AccessoryAntivirus != null)
+                                            {
+                                                <p>Antivirus: @order.ComOrder.AccessoryAntivirus.AccessoryName</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    <div class="form-group pt-3">
+                        <a class="btn btn-outline-secondary float-left" asp-action="Index">Show All</a>
+                    </div>
+    </div>
+</div>
+        

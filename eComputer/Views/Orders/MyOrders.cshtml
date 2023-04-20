@@ -33,7 +33,7 @@
                         <td>
                             @item.OrderStatus
                         </td>
-                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
                         {
                             <td class="align-middle">
                                 @if (item.OrderStatus != "OnDelivery" && item.OrderStatus != "Delivered" && item.OrderStatus != "Cancelled")

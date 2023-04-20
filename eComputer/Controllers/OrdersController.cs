@@ -31,68 +31,16 @@ namespace eComputer.Controllers
             _ordersService = ordersService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allOrders = await _ordersService.GetAllAsync();
+            return View(allOrders);
         }
 
         //Product Details
         public async Task<IActionResult> ProductDetails(int id)
         {
-
-            //var DropdownsData = await _comModelsService.GetNewComModelsDropDownsValues();
-            //var Processors = new List<Accessory>();
-            //var Memory = new List<Accessory>();
-            //var VGA = new List<Accessory>();
-            //var HDD = new List<Accessory>();
-            //var SSD = new List<Accessory>();
-            //var OS = new List<Accessory>();
-            //var Antivirus = new List<Accessory>();
-
             var details = await _comModelsService.GetComModelByIdAsync(id);
-
-            //ViewBag.Accessories = new SelectList(DropdownsData.Accessories, "Id", "AccessoryName", "AccessoryType");
-
-            //foreach (var i in DropdownsData.Accessories)
-            //{
-            //    if (i.AccessoryType.ToString() == "Processor")
-            //    {
-            //        Processors.Add(i);
-            //    }
-            //    if (i.AccessoryType.ToString() == "Memory")
-            //    {
-            //        Memory.Add(i);
-            //    }
-            //    if (i.AccessoryType.ToString() == "VGA")
-            //    {
-            //        VGA.Add(i);
-            //    }
-            //    if (i.AccessoryType.ToString() == "HDD")
-            //    {
-            //        HDD.Add(i);
-            //    }
-            //    if (i.AccessoryType.ToString() == "SSD")
-            //    {
-            //        SSD.Add(i);
-            //    }
-            //    if (i.AccessoryType.ToString() == "OS")
-            //    {
-            //        OS.Add(i);
-            //    }
-            //    if (i.AccessoryType.ToString() == "Antivirus")
-            //    {
-            //        Antivirus.Add(i);
-            //    }
-
-            //}
-
-            //ViewBag.Processors = Processors;
-            //ViewBag.Memory = Memory;
-            //ViewBag.VGA = VGA;
-            //ViewBag.HDD = HDD;
-            //ViewBag.SSD = SSD;
-            //ViewBag.OS = OS;
-            //ViewBag.Antivirus = Antivirus;
 
             return View(details);
         }
@@ -180,7 +128,7 @@ namespace eComputer.Controllers
 
         }
 
-        // Placiny order manually
+        // Placing order manually
         public async Task<IActionResult> PlaceOrderManual()
         {
             var items = _shoppingCart.GetShoppingCartItemsAsync();
@@ -231,6 +179,43 @@ namespace eComputer.Controllers
             return RedirectToAction(nameof(MyOrders));
         }
 
+
+        //Order Details
+        public async Task<IActionResult> OrderDetails(int id)
+        {
+            var details = await _ordersService.GetOrderByIdAsync(id);
+
+            return View(details);
+        }
+
+        //Change Order status
+        public async Task<IActionResult> ChangeStatus(int id)
+        {
+            var orderDetails = await _ordersService.GetOrderByIdAsync(id);
+
+            if (orderDetails == null) return View("NotFound");
+
+            return View(orderDetails);
+        }
+
+        //[HttpPost, ActionName("ChangeStatus")]
+        //public async Task<IActionResult> ChangeStatusConfirm(Order order)
+        //{
+        //    var orderDetails = await _ordersService.GetOrderByIdAsync(order.Id);
+
+        //    if (orderDetails == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+        //    else
+        //    {
+        //        var newStatus = 
+        //        orderDetails.OrderStatus = OrderStatus.Cancelled.ToString();
+        //        await _context.SaveChangesAsync();
+        //    }
+
+        //    return RedirectToAction(nameof(MyOrders));
+        //}
     }
 }
 
