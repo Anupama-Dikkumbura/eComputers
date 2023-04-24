@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="mt-3">
+            <form asp-action="GenerateReport">
+                <div class="form-group">
+                    <label class="control-label">Select Report To Generate</label>
+                    <select name="reportType" class="form-control">
+                        <option value="customers">Customers</option>
+                        <option value="allOrders">All Orders</option>
+                        <option value="newOrders">New Orders</option>
+                    </select>
+                </div>
+                <div class="form-group pt-3">
+                    <input type="submit" value="Generate" class="btn btn-outline-success float-right" />
+                </div>
+            </form>
+        </div>
+
+        <hr />
+        <h4 class="pt-2">New Orders</h4>
+        <a href="" class="btn btn-primary">Download</a>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Price</th>
+                    <th>status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @foreach (var item in Model)
+                    {
+                        @if (item.OrderStatus == "New")
+                        {
+                            <tr>
+                                <td class="align-middle">
+                                    @item.Id
+                                </td>
+                                <td class="align-middle">
+                                    @item.User.FullName
+                                </td>
+                                <td class="align-middle">
+                                    @foreach (var orderitem in item.OrderItems)
+                                    {
+                                        @orderitem.ComOrder.ComModel.ModelName
+                                        <br />
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        var prices = item.OrderItems.Select(n => n.Price).Sum();
+                                    }
+                                    @prices
+                                </td>
+                                <td class="align-middle">
+                                    @item.OrderStatus
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
