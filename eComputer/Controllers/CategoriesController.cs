@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using eComputer.Data;
 using eComputer.Data.Services;
+using eComputer.Data.Static;
 using eComputer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eComputer.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Sales)]
     public class CategoriesController : Controller
     {
         private readonly ICategoriesService _service;
