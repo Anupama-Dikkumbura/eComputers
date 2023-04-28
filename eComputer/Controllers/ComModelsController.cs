@@ -27,6 +27,8 @@ namespace eComputer.Controllers
             return View(allModels);
         }
 
+        
+
         //Create a Model
         public async Task<IActionResult> Create()
         {

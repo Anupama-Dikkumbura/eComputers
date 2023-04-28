@@ -23,6 +23,20 @@ public class HomeController : Controller
         return View(allComs);
     }
 
+    // Filter
+    public async Task<IActionResult> Filter(string searchString)
+    {
+        var allModels = await _service.GetAllAsync(n => n.Series);
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            var filteredResult = allModels.Where(n => n.ModelName.Contains(searchString) || n.ModelDescription.Contains(searchString)).ToList();
+
+            return View("Index", filteredResult);
+        }
+        return View("Index", allModels);
+
+    }
+
     public IActionResult Privacy()
     {
         return View();

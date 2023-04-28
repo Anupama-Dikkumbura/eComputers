@@ -1,4 +1,6 @@
-﻿@model Order
+﻿@using eComputer.Data.ViewModels;
+
+@model Order
 
 @{
     ViewData["Title"] = "Change Status";
@@ -7,13 +9,13 @@
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h1>Change order status</h1>
+            <h1>Change order status of @Model.Id</h1>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
                 <form asp-action="ChangeStatus">
                     <div class="form-group">
-                        <label asp-for="OrderStatus" class="control-label"></label>
+                        <label class="control-label">Current Status: @Model.OrderStatus</label>
                         <select asp-for="OrderStatus" class="form-control">
                             @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                             {
@@ -31,14 +33,15 @@
                                 <option value="OnDelivery">OnDelivery</option>
                                 <option value="Delivered">Delivered</option>
                             }
-                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Manufacture"))
                             {
                                 <option value="OnDelivery">OnDelivery</option>
                             }
                         </select>
+                        <input value="@Model.Id" hidden />
                     </div>
                     <div class="form-group pt-3">
-                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <input type="submit" value="Change" class="btn btn-outline-success float-right" />
                         <a class="btn btn-outline-secondary float-left" asp-action="Index">Show All</a>
                     </div>
                 </form>

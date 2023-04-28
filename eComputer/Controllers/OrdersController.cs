@@ -198,24 +198,23 @@ namespace eComputer.Controllers
             return View(orderDetails);
         }
 
-        //[HttpPost, ActionName("ChangeStatus")]
-        //public async Task<IActionResult> ChangeStatusConfirm(Order order)
-        //{
-        //    var orderDetails = await _ordersService.GetOrderByIdAsync(order.Id);
+        [HttpPost, ActionName("ChangeStatus")]
+        public async Task<IActionResult> ChangeStatusConfirm(int id, string OrderStatus)
+        {
+            var orderDetails = await _ordersService.GetOrderByIdAsync(id);
 
-        //    if (orderDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-        //    else
-        //    {
-        //        var newStatus = 
-        //        orderDetails.OrderStatus = OrderStatus.Cancelled.ToString();
-        //        await _context.SaveChangesAsync();
-        //    }
+            if (orderDetails == null)
+            {
+                return View("NotFound");
+            }
+            else
+            {
+                orderDetails.OrderStatus = OrderStatus;
+                await _context.SaveChangesAsync();
+            }
 
-        //    return RedirectToAction(nameof(MyOrders));
-        //}
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
 
